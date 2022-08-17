@@ -364,7 +364,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,9 +389,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>schoolsout/</code> <span
@@ -414,21 +414,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -519,15 +516,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree8fc233f499012e95a0e8589b69726386417b9762targetblank8fc233fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree4d0371c8adf2c5060986fca4256b88ab28231e55targetblank4d0371ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/jakejh/schoolsout/tree/8fc233f499012e95a0e8589b69726386417b9762" target="_blank">8fc233f</a>
+<a href="https://github.com/jakejh/schoolsout/tree/4d0371c8adf2c5060986fca4256b88ab28231e55" target="_blank">4d0371c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree8fc233f499012e95a0e8589b69726386417b9762targetblank8fc233fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree4d0371c8adf2c5060986fca4256b88ab28231e55targetblank4d0371ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +534,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/jakejh/schoolsout/tree/8fc233f499012e95a0e8589b69726386417b9762" target="_blank">8fc233f</a>.
+<a href="https://github.com/jakejh/schoolsout/tree/4d0371c8adf2c5060986fca4256b88ab28231e55" target="_blank">4d0371c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -554,14 +551,6 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-
-Unstaged changes:
-    Modified:   .Rbuildignore
-    Modified:   DESCRIPTION
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/main-analysis.Rmd
-    Deleted:    code/01_main.R
-    Modified:   schoolsout.Rproj
 
 </code></pre>
 <p>
@@ -607,6 +596,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jakejh/schoolsout/blob/bd3414370cac9796a1ea14f91ffe578529e063fb/analysis/main-analysis.Rmd" target="_blank">bd34143</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-17
+</td>
+<td>
+updated main analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jakejh/schoolsout/bd3414370cac9796a1ea14f91ffe578529e063fb/docs/main-analysis.html" target="_blank">bd34143</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-17
+</td>
+<td>
+updated main analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -701,6 +724,43 @@ dFit[, term := factor(
   scale_color_brewer(palette = &#39;Set2&#39;)
 p</code></pre>
 <p><img src="figure/main-analysis.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jakejh/schoolsout/blob/bd3414370cac9796a1ea14f91ffe578529e063fb/docs/figure/main-analysis.Rmd/unnamed-chunk-4-1.png" target="_blank">bd34143</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

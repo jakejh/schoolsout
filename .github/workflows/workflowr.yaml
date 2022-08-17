@@ -1,4 +1,4 @@
-name: ci
+name: workflowr
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
     tags: ['*']
 
 jobs:
-  ci:
-    runs-on: ubuntu-latest
+  workflowr:
+    runs-on: ubuntu-22.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
