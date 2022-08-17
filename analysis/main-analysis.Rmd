@@ -7,9 +7,86 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+Load packages and data.
 
 ```{r}
+library('broom')
+library('cowplot')
+library('data.table')
+library('ggplot2')
+library('haven')
 
+theme_set(
+  theme_bw() +
+    theme(axis.text = element_text(color = 'black'),
+          panel.grid.minor = element_blank(),
+          legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = 'cm')))
+
+dataDir = 'data'
+
+dOrig = setDT(read_dta(file.path(dataDir, 'master.dta')))
 ```
+
+Melt data.table to long format, scale outcomes by standard deviation of the control group, and rename stuff.
+
+```{r}
+outcomes = data.table(
+  level = c('average_level', 'place_value_correct', 'operation_frac_correct'),
+  label = c('Average level', 'Place value', 'Fractions'))
+
+dMelt = melt(
+  dOrig,
+  id.vars = c('unique_id', 'treatment', 'treat_pool', 'treat_target', 'tarl_prev'),
+  measure.vars = outcomes$level, variable.name = 'outcome_name',
+  value.name = 'outcome_value', variable.factor = FALSE)
+
+dMelt[
+  , outcome_value := outcome_value / sd(outcome_value[treatment == 0], na.rm = TRUE),
+  by = outcome_name]
+
+dMelt[, outcome_name := factor(outcome_name, outcomes$level, outcomes$label)]
+
+for (j in c('treat_pool', 'treat_target')) {
+  a = attr(dOrig[[j]], 'labels')
+  dMelt[, x := factor(x, a, names(a)), env = list(x = j)]}
+```
+
+Run linear regression on each outcome (although a couple are binary) for both codings of treatment variable. `lm()` automatically removes missing values.
+
+```{r}
+dFitPool = dMelt[
+  , tidy(lm(
+    outcome_value ~ treat_pool + tarl_prev, data = .SD), conf.int = TRUE),
+  keyby = outcome_name]
+
+dFitTarget = dMelt[
+  , tidy(lm(
+    outcome_value ~ treat_target + tarl_prev, data = .SD), conf.int = TRUE),
+  keyby = outcome_name]
+
+dFit = rbind(dFitPool, dFitTarget)
+dFit[, term := factor(
+  term,
+  c('(Intercept)', 'treat_poolSMS Only', 'treat_poolPhone + SMS',
+    'treat_targetNot Targeted', 'treat_targetTargeted', 'tarl_prev'),
+  c('Intercept', 'SMS Only', 'Phone + SMS', 'Not Targeted', 'Targeted', 'Previous TARL'))]
+```
+
+Plot coefficients.
+
+```{r}
+p = ggplot(dFit[!(term %in% c('Intercept', 'Previous TARL'))]) +
+  geom_hline(yintercept = 0, color = 'gray', linetype = 'dashed') +
+  geom_point(
+    aes(x = term, y = estimate, color = outcome_name, shape = outcome_name),
+    position = position_dodge(width = 0.5), size = 3) +
+  geom_linerange(
+    aes(x = term, ymin = conf.low, ymax = conf.high, color = outcome_name),
+    position = position_dodge(width = 0.5), size = 1, alpha = 0.5) +
+  labs(x = 'Treatment', y = 'Learning gains (in standard deviations)',
+       color = 'Outcome', shape = 'Outcome') +
+  scale_color_brewer(palette = 'Set2')
+p
+```
+
 
