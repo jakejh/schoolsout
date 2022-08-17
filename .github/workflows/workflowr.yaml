@@ -19,7 +19,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
 
-      - name: Switch git branch
+      - name: Configure git
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
@@ -27,13 +27,13 @@ jobs:
 
       - name: Build and publish
         run: |
-          install.packages('workflowr', repos = 'http://cran.us.r-project.org')
+          install.packages('workflowr', repos = 'http://cran.rstudio.com')
           workflowr::wflow_git_config()
           workflowr::wflow_build()
           workflowr::wflow_publish(republish = TRUE)
         shell: Rscript {0}
 
-      - name: Commit to gh-pages
+      - name: Commit and push to gh-pages
         run: |
           git add ./
           git commit -m 'Updated workflowr site via GitHub Actions'
