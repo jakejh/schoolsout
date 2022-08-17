@@ -10,6 +10,7 @@ editor_options:
 Load packages and data.
 
 ```{r}
+data.table::update_dev_pkg()
 library('broom')
 library('cowplot')
 library('data.table')

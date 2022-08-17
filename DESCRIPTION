@@ -16,5 +16,3 @@ Imports:
   ggplot2,
   haven,
   workflowr
-Remotes:
-  Rdatatable/data.table@*release
