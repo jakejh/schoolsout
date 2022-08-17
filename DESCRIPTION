@@ -14,5 +14,6 @@ Imports:
   cowplot,
   data.table,
   ggplot2,
+  git2r,
   haven,
   workflowr
