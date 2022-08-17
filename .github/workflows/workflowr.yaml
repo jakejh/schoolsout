@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and publish
         run: |
-          install.packages('workflowr')
+          install.packages('workflowr', repos = 'http://cran.us.r-project.org')
           workflowr::wflow_git_config()
           workflowr::wflow_build()
           workflowr::wflow_publish(republish = TRUE)
