@@ -37,7 +37,7 @@ jobs:
 
       - name: Commit and push to gh-pages
         run: |
-          git add .
+          git add ./
           git commit -m 'Updated workflowr site via GitHub Actions'
           git push -f origin main:gh-pages
         shell: bash

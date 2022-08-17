@@ -364,7 +364,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,9 +389,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>schoolsout/</code> <span
@@ -414,18 +414,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -516,15 +519,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree87fdeb9615fe801f8671e9599e8e55d889ca5887targetblank87fdeb9a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree39e6f2047cc3d3ad4cd4b667a502de9fc8c7c6f3targetblank39e6f20a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/jakejh/schoolsout/tree/87fdeb9615fe801f8671e9599e8e55d889ca5887" target="_blank">87fdeb9</a>
+<a href="https://github.com/jakejh/schoolsout/tree/39e6f2047cc3d3ad4cd4b667a502de9fc8c7c6f3" target="_blank">39e6f20</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree87fdeb9615fe801f8671e9599e8e55d889ca5887targetblank87fdeb9a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree39e6f2047cc3d3ad4cd4b667a502de9fc8c7c6f3targetblank39e6f20a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -534,7 +537,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/jakejh/schoolsout/tree/87fdeb9615fe801f8671e9599e8e55d889ca5887" target="_blank">87fdeb9</a>.
+<a href="https://github.com/jakejh/schoolsout/tree/39e6f2047cc3d3ad4cd4b667a502de9fc8c7c6f3" target="_blank">39e6f20</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,6 +554,10 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Modified:   DESCRIPTION
+    Modified:   analysis/main-analysis.Rmd
 
 </code></pre>
 <p>
@@ -596,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jakejh/schoolsout/blob/2702044cb23b7ea77b27989eebdc472ebb0162e5/analysis/main-analysis.Rmd" target="_blank">2702044</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-17
+</td>
+<td>
+again.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jakejh/schoolsout/5d8c8de5a233bb3fb5d864fa36bea20c174ed82a/docs/main-analysis.html" target="_blank">5d8c8de</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -694,8 +735,13 @@ library(&#39;cowplot&#39;)
 library(&#39;data.table&#39;)
 library(&#39;ggplot2&#39;)
 library(&#39;haven&#39;)
+library(&#39;huxtable&#39;)</code></pre>
+<pre><code>
+Attaching package: &#39;huxtable&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
 
-theme_set(
+    theme_grey</code></pre>
+<pre class="r"><code>theme_set(
   theme_bw() +
     theme(axis.text = element_text(color = &#39;black&#39;),
           panel.grid.minor = element_blank(),
@@ -729,23 +775,42 @@ for (j in c(&#39;treat_pool&#39;, &#39;treat_target&#39;)) {
 for both codings of treatment variable. <code>lm()</code> automatically
 removes missing values.</p>
 <pre class="r"><code>dFitPool = dMelt[
-  , tidy(lm(
-    outcome_value ~ treat_pool + tarl_prev, data = .SD), conf.int = TRUE),
+  , .(treat_type = &#39;pool&#39;,
+      fit = list(lm(outcome_value ~ treat_pool + tarl_prev, data = .SD))),
   keyby = outcome_name]
 
 dFitTarget = dMelt[
-  , tidy(lm(
-    outcome_value ~ treat_target + tarl_prev, data = .SD), conf.int = TRUE),
+  , .(treat_type = &#39;target&#39;,
+      fit = list(lm(outcome_value ~ treat_target + tarl_prev, data = .SD))),
   keyby = outcome_name]
 
 dFit = rbind(dFitPool, dFitTarget)
-dFit[, term := factor(
+dTidy = dFit[, tidy(fit[[1L]], conf.int = TRUE), by = .(treat_type, outcome_name)]
+
+dTidy[, term := factor(
   term,
   c(&#39;(Intercept)&#39;, &#39;treat_poolSMS Only&#39;, &#39;treat_poolPhone + SMS&#39;,
     &#39;treat_targetNot Targeted&#39;, &#39;treat_targetTargeted&#39;, &#39;tarl_prev&#39;),
-  c(&#39;Intercept&#39;, &#39;SMS Only&#39;, &#39;Phone + SMS&#39;, &#39;Not Targeted&#39;, &#39;Targeted&#39;, &#39;Previous TARL&#39;))]</code></pre>
+  c(&#39;Intercept&#39;, &#39;SMS Only&#39;, &#39;Phone + SMS&#39;, &#39;Not Targeted&#39;, &#39;Targeted&#39;, &#39;Previous TARL&#39;))]
+
+# dFitPool = dMelt[
+#   , tidy(lm(
+#     outcome_value ~ treat_pool + tarl_prev, data = .SD), conf.int = TRUE),
+#   keyby = outcome_name]
+# 
+# dFitTarget = dMelt[
+#   , tidy(lm(
+#     outcome_value ~ treat_target + tarl_prev, data = .SD), conf.int = TRUE),
+#   keyby = outcome_name]
+
+# dFit = rbind(dFitPool, dFitTarget)
+# dFit[, term := factor(
+#   term,
+#   c(&#39;(Intercept)&#39;, &#39;treat_poolSMS Only&#39;, &#39;treat_poolPhone + SMS&#39;,
+#     &#39;treat_targetNot Targeted&#39;, &#39;treat_targetTargeted&#39;, &#39;tarl_prev&#39;),
+#   c(&#39;Intercept&#39;, &#39;SMS Only&#39;, &#39;Phone + SMS&#39;, &#39;Not Targeted&#39;, &#39;Targeted&#39;, &#39;Previous TARL&#39;))]</code></pre>
 <p>Plot coefficients.</p>
-<pre class="r"><code>p = ggplot(dFit[!(term %in% c(&#39;Intercept&#39;, &#39;Previous TARL&#39;))]) +
+<pre class="r"><code>p = ggplot(dTidy[!(term %in% c(&#39;Intercept&#39;, &#39;Previous TARL&#39;))]) +
   geom_hline(yintercept = 0, color = &#39;gray&#39;, linetype = &#39;dashed&#39;) +
   geom_point(
     aes(x = term, y = estimate, color = outcome_name, shape = outcome_name),
@@ -795,6 +860,56 @@ Jake Hughey
 </table>
 </div>
 </div>
+<pre class="r"><code>fits = dFit[treat_type == &#39;pool&#39;]$fit
+names(fits) = dFit[treat_type == &#39;pool&#39;]$outcome_name
+
+huxreg(
+  fits, ci_level = 0.95,
+  error_format = &quot;({std.error})\n[{p.value}]\n{{{conf.low}, {conf.high}}}&quot;,
+  coefs = c(&#39;SMS Only&#39; = &#39;treat_poolSMS Only&#39;, &#39;Phone + SMS&#39; = &#39;treat_poolPhone + SMS&#39;),
+  statistics = c(&#39;Observations&#39; = &#39;nobs&#39;))</code></pre>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-5">
+<col><col><col><col><tr>
+<th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;"></th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Average level</th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Place value</th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Fractions</th></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">SMS Only</th><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.024&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.009&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.047&nbsp;</td></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;"></th><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.046)<br>[0.600]<br>{-0.066, 0.114}&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.044)<br>[0.833]<br>{-0.078, 0.096}&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.046)<br>[0.305]<br>{-0.043, 0.136}</td></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Phone + SMS</th><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.121 **</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.114 *</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.075&nbsp;</td></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;"></th><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.046)<br>[0.008]<br>{0.031, 0.210}&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.044)<br>[0.010]<br>{0.027, 0.201}&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.046)<br>[0.099]<br>{-0.014, 0.165}</td></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.8pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Observations</th><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.8pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2815&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.8pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2881&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.8pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2751&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr>
+<th colspan="4" style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;"> *** p &lt; 0.001;  ** p &lt; 0.01;  * p &lt; 0.05.</th></tr>
+</table>
+
+<pre class="r"><code>fits = dFit[treat_type == &#39;target&#39;]$fit
+names(fits) = dFit[treat_type == &#39;target&#39;]$outcome_name
+
+huxreg(
+  fits, ci_level = 0.95,
+  error_format = &quot;({std.error})\n[{p.value}]\n{{{conf.low}, {conf.high}}}&quot;,
+  coefs = c(&#39;Not Targeted&#39; = &#39;treat_targetNot Targeted&#39;, &#39;Targeted&#39; = &#39;treat_targetTargeted&#39;),
+  statistics = c(&#39;Observations&#39; = &#39;nobs&#39;))</code></pre>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-6">
+<col><col><col><col><tr>
+<th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;"></th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Average level</th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Place value</th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Fractions</th></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Not Targeted</th><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.070&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.026&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.029&nbsp;&nbsp;</td></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;"></th><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.046)<br>[0.127]<br>{-0.020, 0.159}</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.044)<br>[0.564]<br>{-0.061, 0.113}&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.046)<br>[0.521]<br>{-0.060, 0.119}&nbsp;</td></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Targeted</th><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.076&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.098 *</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.093 *</td></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;"></th><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.046)<br>[0.099]<br>{-0.014, 0.165}</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.044)<br>[0.027]<br>{0.011, 0.185}&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">(0.046)<br>[0.042]<br>{0.003, 0.182}&nbsp;</td></tr>
+<tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.8pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Observations</th><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.8pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2815&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.8pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2881&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.8pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2751&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr>
+<th colspan="4" style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;"> *** p &lt; 0.001;  ** p &lt; 0.01;  * p &lt; 0.05.</th></tr>
+</table>
+
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -819,27 +934,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] haven_2.5.0       ggplot2_3.3.6     data.table_1.14.3 cowplot_1.1.1    
-[5] broom_1.0.0       workflowr_1.7.0  
+[1] huxtable_5.5.0    haven_2.5.0       ggplot2_3.3.6     data.table_1.14.3
+[5] cowplot_1.1.1     broom_1.0.0      
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.1.2   xfun_0.32          bslib_0.4.0        purrr_0.3.4       
  [5] colorspace_2.0-3   vctrs_0.4.1        generics_0.1.3     htmltools_0.5.3   
  [9] yaml_2.3.5         utf8_1.2.2         rlang_1.0.4        jquerylib_0.1.4   
-[13] later_1.3.0        pillar_1.8.0       withr_2.5.0        glue_1.6.2        
+[13] later_1.3.0        pillar_1.8.0       glue_1.6.2         withr_2.5.0       
 [17] DBI_1.1.3          RColorBrewer_1.1-3 lifecycle_1.0.1    stringr_1.4.0     
-[21] munsell_0.5.0      gtable_0.3.0       evaluate_0.16      labeling_0.4.2    
-[25] forcats_0.5.1      knitr_1.39         tzdb_0.3.0         callr_3.7.1       
-[29] fastmap_1.1.0      httpuv_1.6.5       ps_1.7.1           fansi_1.0.3       
+[21] commonmark_1.8.0   munsell_0.5.0      gtable_0.3.0       workflowr_1.7.0   
+[25] evaluate_0.16      labeling_0.4.2     forcats_0.5.1      knitr_1.39        
+[29] tzdb_0.3.0         fastmap_1.1.0      httpuv_1.6.5       fansi_1.0.3       
 [33] highr_0.9          Rcpp_1.0.9         readr_2.1.2        promises_1.2.0.1  
 [37] backports_1.4.1    scales_1.2.0       cachem_1.0.6       jsonlite_1.8.0    
 [41] farver_2.1.1       fs_1.5.2           hms_1.1.1          digest_0.6.29     
-[45] stringi_1.7.8      processx_3.7.0     dplyr_1.0.9        getPass_0.2-2     
-[49] rprojroot_2.0.3    grid_4.2.1         cli_3.3.0          tools_4.2.1       
-[53] magrittr_2.0.3     sass_0.4.2         tibble_3.1.8       whisker_0.4       
-[57] tidyr_1.2.0        pkgconfig_2.0.3    ellipsis_0.3.2     assertthat_0.2.1  
-[61] rmarkdown_2.14     httr_1.4.3         rstudioapi_0.13    R6_2.5.1          
-[65] git2r_0.30.1       compiler_4.2.1    </code></pre>
+[45] stringi_1.7.8      dplyr_1.0.9        rprojroot_2.0.3    grid_4.2.1        
+[49] cli_3.3.0          tools_4.2.1        magrittr_2.0.3     sass_0.4.2        
+[53] tibble_3.1.8       crayon_1.5.1       whisker_0.4        tidyr_1.2.0       
+[57] pkgconfig_2.0.3    ellipsis_0.3.2     assertthat_0.2.1   rmarkdown_2.14    
+[61] rstudioapi_0.13    R6_2.5.1           git2r_0.30.1       compiler_4.2.1    </code></pre>
 </div>
 
 

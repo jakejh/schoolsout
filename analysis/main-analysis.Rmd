@@ -10,12 +10,12 @@ editor_options:
 Load packages and data.
 
 ```{r}
-data.table::update_dev_pkg()
 library('broom')
 library('cowplot')
 library('data.table')
 library('ggplot2')
 library('haven')
+library('huxtable')
 
 theme_set(
   theme_bw() +
@@ -30,7 +30,7 @@ dOrig = setDT(read_dta(file.path(dataDir, 'master.dta')))
 
 Melt data.table to long format, scale outcomes by standard deviation of the control group, and rename stuff.
 
-```{r}
+```{r, results = 'hide'}
 outcomes = data.table(
   level = c('average_level', 'place_value_correct', 'operation_frac_correct'),
   label = c('Average level', 'Place value', 'Fractions'))
@@ -54,29 +54,38 @@ for (j in c('treat_pool', 'treat_target')) {
 
 Run linear regression on each outcome (although a couple are binary) for both codings of treatment variable. `lm()` automatically removes missing values.
 
-```{r}
+```{r, results = 'hide'}
 dFitPool = dMelt[
-  , tidy(lm(
-    outcome_value ~ treat_pool + tarl_prev, data = .SD), conf.int = TRUE),
+  , .(treat_type = 'pool',
+      fit = list(lm(outcome_value ~ treat_pool + tarl_prev, data = .SD))),
   keyby = outcome_name]
 
 dFitTarget = dMelt[
-  , tidy(lm(
-    outcome_value ~ treat_target + tarl_prev, data = .SD), conf.int = TRUE),
+  , .(treat_type = 'target',
+      fit = list(lm(outcome_value ~ treat_target + tarl_prev, data = .SD))),
   keyby = outcome_name]
 
 dFit = rbind(dFitPool, dFitTarget)
-dFit[, term := factor(
+dTidy = dFit[, tidy(fit[[1L]], conf.int = TRUE), by = .(treat_type, outcome_name)]
+
+dTidy[, term := factor(
   term,
   c('(Intercept)', 'treat_poolSMS Only', 'treat_poolPhone + SMS',
     'treat_targetNot Targeted', 'treat_targetTargeted', 'tarl_prev'),
   c('Intercept', 'SMS Only', 'Phone + SMS', 'Not Targeted', 'Targeted', 'Previous TARL'))]
 ```
 
+```{r}
+dSummary = dMelt[
+  treatment == 0,
+  .(mean_control_outcome = mean(outcome_value, na.rm = TRUE)),
+  keyby = outcome_name]
+```
+
 Plot coefficients.
 
 ```{r}
-p = ggplot(dFit[!(term %in% c('Intercept', 'Previous TARL'))]) +
+p = ggplot(dTidy[!(term %in% c('Intercept', 'Previous TARL'))]) +
   geom_hline(yintercept = 0, color = 'gray', linetype = 'dashed') +
   geom_point(
     aes(x = term, y = estimate, color = outcome_name, shape = outcome_name),
@@ -90,4 +99,26 @@ p = ggplot(dFit[!(term %in% c('Intercept', 'Previous TARL'))]) +
 p
 ```
 
+
+```{r}
+fits = dFit[treat_type == 'pool']$fit
+names(fits) = dFit[treat_type == 'pool']$outcome_name
+
+huxreg(
+  fits, ci_level = 0.95,
+  error_format = "({std.error})\n[{p.value}]\n{{{conf.low}, {conf.high}}}",
+  coefs = c('SMS Only' = 'treat_poolSMS Only', 'Phone + SMS' = 'treat_poolPhone + SMS'),
+  statistics = c('Observations' = 'nobs'))
+```
+
+```{r}
+fits = dFit[treat_type == 'target']$fit
+names(fits) = dFit[treat_type == 'target']$outcome_name
+
+huxreg(
+  fits, ci_level = 0.95,
+  error_format = "({std.error})\n[{p.value}]\n{{{conf.low}, {conf.high}}}",
+  coefs = c('Not Targeted' = 'treat_targetNot Targeted', 'Targeted' = 'treat_targetTargeted'),
+  statistics = c('Observations' = 'nobs'))
+```
 

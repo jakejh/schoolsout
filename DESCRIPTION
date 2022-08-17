@@ -15,6 +15,7 @@ Imports:
   data.table,
   ggplot2,
   haven,
+  huxtable,
   workflowr
 Remotes:
   Rdatatable/data.table@*release
