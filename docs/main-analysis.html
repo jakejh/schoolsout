@@ -13,9 +13,9 @@
 
 <meta name="date" content="2022-08-17" />
 
-<title>main-analysis</title>
+<title>Main Analysis</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -37,6 +37,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -156,11 +158,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -354,7 +360,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">main-analysis</h1>
+<h1 class="title toc-ignore">Main Analysis</h1>
 <h4 class="author">Jake Hughey</h4>
 <h4 class="date">2022-08-17</h4>
 
@@ -364,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -385,13 +391,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-17
+<strong>Last updated:</strong> 2022-08-21
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>schoolsout/</code> <span
@@ -414,21 +420,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has staged changes. To know which version of the
-R Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -519,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree39e6f2047cc3d3ad4cd4b667a502de9fc8c7c6f3targetblank39e6f20a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttreea3f43ebf6f832faa9a5d8c21866a849db02b1042targetblanka3f43eba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/jakejh/schoolsout/tree/39e6f2047cc3d3ad4cd4b667a502de9fc8c7c6f3" target="_blank">39e6f20</a>
+<a href="https://github.com/jakejh/schoolsout/tree/a3f43ebf6f832faa9a5d8c21866a849db02b1042" target="_blank">a3f43eb</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttree39e6f2047cc3d3ad4cd4b667a502de9fc8c7c6f3targetblank39e6f20a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjakejhschoolsouttreea3f43ebf6f832faa9a5d8c21866a849db02b1042targetblanka3f43eba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/jakejh/schoolsout/tree/39e6f2047cc3d3ad4cd4b667a502de9fc8c7c6f3" target="_blank">39e6f20</a>.
+<a href="https://github.com/jakejh/schoolsout/tree/a3f43ebf6f832faa9a5d8c21866a849db02b1042" target="_blank">a3f43eb</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -554,11 +557,6 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-
-Staged changes:
-    Modified:   .github/workflows/workflowr.yaml
-    Modified:   DESCRIPTION
-    Modified:   analysis/main-analysis.Rmd
 
 </code></pre>
 <p>
@@ -604,6 +602,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jakejh/schoolsout/blob/a3f43ebf6f832faa9a5d8c21866a849db02b1042/analysis/main-analysis.Rmd" target="_blank">a3f43eb</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-21
+</td>
+<td>
+updated main analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jakejh/schoolsout/f9ab6c42b8832ed9ecef92a0ea4db085cf0569d4/docs/main-analysis.html" target="_blank">f9ab6c4</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-17
+</td>
+<td>
+again.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jakejh/schoolsout/blob/d79cdd6a1c90ad616f507845a645318f67eb5651/analysis/main-analysis.Rmd" target="_blank">d79cdd6</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jakejh/schoolsout/d79cdd6a1c90ad616f507845a645318f67eb5651/docs/main-analysis.html" target="_blank">d79cdd6</a>
+</td>
+<td>
+Jake Hughey
+</td>
+<td>
+2022-08-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -730,19 +796,19 @@ added analysis file.
 </div>
 </div>
 </div>
-<p>Load packages and data.</p>
+<div id="load-packages-and-data." class="section level3">
+<h3>Load packages and data.</h3>
 <pre class="r"><code>library(&#39;broom&#39;)
 library(&#39;cowplot&#39;)
 library(&#39;data.table&#39;)
+library(&#39;foreach&#39;)
 library(&#39;ggplot2&#39;)
 library(&#39;haven&#39;)
-library(&#39;huxtable&#39;)</code></pre>
-<pre><code>
-Attaching package: &#39;huxtable&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+library(&#39;huxtable&#39;)
+library(&#39;kableExtra&#39;)
+library(&#39;knitr&#39;)
 
-    theme_grey</code></pre>
-<pre class="r"><code>theme_set(
+theme_set(
   theme_bw() +
     theme(axis.text = element_text(color = &#39;black&#39;),
           panel.grid.minor = element_blank(),
@@ -750,9 +816,14 @@ Attaching package: &#39;huxtable&#39;</code></pre>
 
 dataDir = &#39;data&#39;
 
-dOrig = setDT(read_dta(file.path(dataDir, &#39;master.dta&#39;)))</code></pre>
-<p>Melt data.table to long format, scale outcomes by standard deviation
-of the control group, and rename stuff.</p>
+dOrig = setDT(read_dta(file.path(dataDir, &#39;master.dta&#39;)))
+treat_types = c(&#39;treat_pool&#39;, &#39;treat_target&#39;)</code></pre>
+</div>
+<div
+id="melt-data.table-to-long-format-scale-outcomes-by-standard-deviation-of-the-control-group-and-rename-stuff."
+class="section level3">
+<h3>Melt data.table to long format, scale outcomes by standard deviation
+of the control group, and rename stuff.</h3>
 <pre class="r"><code>outcomes = data.table(
   level = c(&#39;average_level&#39;, &#39;place_value_correct&#39;, &#39;operation_frac_correct&#39;),
   label = c(&#39;Average level&#39;, &#39;Place value&#39;, &#39;Fractions&#39;))
@@ -769,35 +840,49 @@ dMelt[
 
 dMelt[, outcome_name := factor(outcome_name, outcomes$level, outcomes$label)]
 
-for (j in c(&#39;treat_pool&#39;, &#39;treat_target&#39;)) {
+for (j in treat_types) {
   a = attr(dOrig[[j]], &#39;labels&#39;)
   dMelt[, x := factor(x, a, names(a)), env = list(x = j)]}</code></pre>
-<p>Run linear regression on each outcome (although a couple are binary)
-for both codings of treatment variable. <code>lm()</code> automatically
-removes missing values.</p>
-<pre class="r"><code>dFitPool = dMelt[
-  , .(treat_type = &#39;pool&#39;,
-      fit = list(lm(outcome_value ~ treat_pool + tarl_prev, data = .SD))),
-  keyby = outcome_name]
-
-dFitTarget = dMelt[
-  , .(treat_type = &#39;target&#39;,
-      fit = list(lm(outcome_value ~ treat_target + tarl_prev, data = .SD))),
-  keyby = outcome_name]
-
-dFit = rbind(dFitPool, dFitTarget)
-dTidy = dFit[, tidy(fit[[1L]], conf.int = TRUE), by = .(treat_type, outcome_name)]
+</div>
+<div
+id="run-linear-regression-on-each-outcome-although-a-couple-are-binary-for-both-codings-of-treatment-variable-and-for-the-aggregated-treatment."
+class="section level3">
+<h3>Run linear regression on each outcome (although a couple are binary)
+for both codings of treatment variable, and for the “aggregated”
+treatment.</h3>
+<p><code>lm()</code> automatically removes missing values.</p>
+<pre class="r"><code>dFit = foreach(treat_type = treat_types, .combine = rbind) %do% {
+  dMelt[
+    , .(treat_type = treat_type,
+        fit_sep = list(lm(outcome_value ~ x + tarl_prev, data = .SD)),
+        fit_agg = list(lm(outcome_value ~ I(x != &#39;Control&#39;) + tarl_prev, data = .SD))),
+    keyby = outcome_name, env = list(x = treat_type)]}</code></pre>
+</div>
+<div id="run-an-anova-comparison-to-test-equality-of-coefficients."
+class="section level3">
+<h3>Run an anova comparison to test equality of coefficients.</h3>
+<pre class="r"><code>dFit[, anova_comp := .(.(anova(fit_sep[[1L]], fit_agg[[1L]]))),
+     by = .(treat_type, outcome_name)]
+dFit[, p_value_comp := anova_comp[[1L]]$`Pr(&gt;F)`[2L],
+     by = .(treat_type, outcome_name)]
+dFit[treat_type == &#39;treat_pool&#39;, p_value_comp_label := &#39;SMS Only = Phone + SMS&#39;]
+dFit[treat_type == &#39;treat_target&#39;, p_value_comp_label := &#39;Not Targeted = Targeted&#39;]</code></pre>
+</div>
+<div id="extract-model-statistics-from-the-fits."
+class="section level3">
+<h3>Extract model statistics from the fits.</h3>
+<pre class="r"><code>dTidy = dFit[
+  , tidy(fit_sep[[1L]], conf.int = TRUE),
+  keyby = .(treat_type, outcome_name)]
 
 dTidy[, term := factor(
   term,
   c(&#39;(Intercept)&#39;, &#39;treat_poolSMS Only&#39;, &#39;treat_poolPhone + SMS&#39;,
     &#39;treat_targetNot Targeted&#39;, &#39;treat_targetTargeted&#39;, &#39;tarl_prev&#39;),
   c(&#39;Intercept&#39;, &#39;SMS Only&#39;, &#39;Phone + SMS&#39;, &#39;Not Targeted&#39;, &#39;Targeted&#39;, &#39;Previous TARL&#39;))]</code></pre>
-<pre class="r"><code>dSummary = dMelt[
-  treatment == 0,
-  .(mean_control_outcome = mean(outcome_value, na.rm = TRUE)),
-  keyby = outcome_name]</code></pre>
-<p>Plot coefficients.</p>
+</div>
+<div id="plot-coefficients." class="section level3">
+<h3>Plot coefficients.</h3>
 <pre class="r"><code>p = ggplot(dTidy[!(term %in% c(&#39;Intercept&#39;, &#39;Previous TARL&#39;))]) +
   geom_hline(yintercept = 0, color = &#39;gray&#39;, linetype = &#39;dashed&#39;) +
   geom_point(
@@ -810,16 +895,19 @@ dTidy[, term := factor(
        color = &#39;Outcome&#39;, shape = &#39;Outcome&#39;) +
   scale_color_brewer(palette = &#39;Set2&#39;)
 p</code></pre>
-<p><img src="figure/main-analysis.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>fits = dFit[treat_type == &#39;pool&#39;]$fit
-names(fits) = dFit[treat_type == &#39;pool&#39;]$outcome_name
+<p><img src="figure/main-analysis.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="produce-regression-tables." class="section level3">
+<h3>Produce regression tables.</h3>
+<pre class="r"><code>fits = dFit[treat_type == &#39;treat_pool&#39;]$fit_sep
+names(fits) = dFit[treat_type == &#39;treat_pool&#39;]$outcome_name
 
 huxreg(
   fits, ci_level = 0.95,
   error_format = &quot;({std.error})\n[{p.value}]\n{{{conf.low}, {conf.high}}}&quot;,
   coefs = c(&#39;SMS Only&#39; = &#39;treat_poolSMS Only&#39;, &#39;Phone + SMS&#39; = &#39;treat_poolPhone + SMS&#39;),
   statistics = c(&#39;Observations&#39; = &#39;nobs&#39;))</code></pre>
-<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-6">
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-7">
 <col><col><col><col><tr>
 <th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;"></th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Average level</th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Place value</th><th style="vertical-align: top; text-align: center; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Fractions</th></tr>
 <tr>
@@ -836,8 +924,8 @@ huxreg(
 <th colspan="4" style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;"> *** p &lt; 0.001;  ** p &lt; 0.01;  * p &lt; 0.05.</th></tr>
 </table>
 
-<pre class="r"><code>fits = dFit[treat_type == &#39;target&#39;]$fit
-names(fits) = dFit[treat_type == &#39;target&#39;]$outcome_name
+<pre class="r"><code>fits = dFit[treat_type == &#39;treat_target&#39;]$fit_sep
+names(fits) = dFit[treat_type == &#39;treat_target&#39;]$outcome_name
 
 huxreg(
   fits, ci_level = 0.95,
@@ -861,6 +949,103 @@ huxreg(
 <th colspan="4" style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.8pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;"> *** p &lt; 0.001;  ** p &lt; 0.01;  * p &lt; 0.05.</th></tr>
 </table>
 
+</div>
+<div id="produce-table-of-p-values-for-comparing-treatments."
+class="section level3">
+<h3>Produce table of p-values for comparing treatments.</h3>
+<pre class="r"><code>dComp = dcast(
+  dFit, p_value_comp_label ~ outcome_name, value.var = &#39;p_value_comp&#39;)
+setnames(dComp, &#39;p_value_comp_label&#39;, &#39;Comparison&#39;)
+
+kable_paper(kbl(dComp, digits = 3), &#39;hover&#39;, full_width = FALSE)</code></pre>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Comparison
+</th>
+<th style="text-align:right;">
+Average level
+</th>
+<th style="text-align:right;">
+Place value
+</th>
+<th style="text-align:right;">
+Fractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Not Targeted = Targeted
+</td>
+<td style="text-align:right;">
+0.897
+</td>
+<td style="text-align:right;">
+0.103
+</td>
+<td style="text-align:right;">
+0.165
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SMS Only = Phone + SMS
+</td>
+<td style="text-align:right;">
+0.034
+</td>
+<td style="text-align:right;">
+0.019
+</td>
+<td style="text-align:right;">
+0.533
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="calculate-mean-outcome-values-for-the-controls."
+class="section level3">
+<h3>Calculate mean outcome values for the controls.</h3>
+<pre class="r"><code>dSummary = dMelt[
+  treatment == 0,
+  .(mean_control_outcome = mean(outcome_value, na.rm = TRUE)),
+  keyby = outcome_name]
+dSummary = dcast(
+  dSummary, . ~ outcome_name, value.var = &#39;mean_control_outcome&#39;)[, !&#39;.&#39;]
+
+kable_paper(kbl(dSummary, digits = 3), &#39;hover&#39;, full_width = FALSE)</code></pre>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Average level
+</th>
+<th style="text-align:right;">
+Place value
+</th>
+<th style="text-align:right;">
+Fractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1.973851
+</td>
+<td style="text-align:right;">
+1.773966
+</td>
+<td style="text-align:right;">
+1.605107
+</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -885,27 +1070,31 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] huxtable_5.5.0    haven_2.5.0       ggplot2_3.3.6     data.table_1.14.3
-[5] cowplot_1.1.1     broom_1.0.0       workflowr_1.7.0  
+ [1] knitr_1.39        kableExtra_1.3.4  huxtable_5.5.0    haven_2.5.0      
+ [5] ggplot2_3.3.6     foreach_1.5.2     data.table_1.14.3 cowplot_1.1.1    
+ [9] broom_1.0.0       workflowr_1.7.0  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.9         tidyr_1.2.0        getPass_0.2-2      ps_1.7.1          
- [5] assertthat_0.2.1   rprojroot_2.0.3    digest_0.6.29      utf8_1.2.2        
- [9] R6_2.5.1           backports_1.4.1    evaluate_0.16      httr_1.4.3        
-[13] highr_0.9          pillar_1.8.0       rlang_1.0.4        rstudioapi_0.13   
-[17] whisker_0.4        callr_3.7.1        jquerylib_0.1.4    rmarkdown_2.14    
-[21] labeling_0.4.2     readr_2.1.2        stringr_1.4.0      munsell_0.5.0     
-[25] compiler_4.2.1     httpuv_1.6.5       xfun_0.32          pkgconfig_2.0.3   
-[29] htmltools_0.5.3    tidyselect_1.1.2   tibble_3.1.8       fansi_1.0.3       
-[33] crayon_1.5.1       dplyr_1.0.9        tzdb_0.3.0         withr_2.5.0       
-[37] later_1.3.0        commonmark_1.8.0   grid_4.2.1         jsonlite_1.8.0    
-[41] gtable_0.3.0       lifecycle_1.0.1    DBI_1.1.3          git2r_0.30.1      
-[45] magrittr_2.0.3     scales_1.2.0       cli_3.3.0          stringi_1.7.8     
-[49] cachem_1.0.6       farver_2.1.1       fs_1.5.2           promises_1.2.0.1  
-[53] bslib_0.4.0        ellipsis_0.3.2     generics_0.1.3     vctrs_0.4.1       
-[57] RColorBrewer_1.1-3 tools_4.2.1        forcats_0.5.1      glue_1.6.2        
-[61] purrr_0.3.4        hms_1.1.1          processx_3.7.0     fastmap_1.1.0     
-[65] yaml_2.3.5         colorspace_2.0-3   knitr_1.39         sass_0.4.2        </code></pre>
+ [1] Rcpp_1.0.9         svglite_2.1.0      tidyr_1.2.0        getPass_0.2-2     
+ [5] ps_1.7.1           assertthat_0.2.1   rprojroot_2.0.3    digest_0.6.29     
+ [9] utf8_1.2.2         R6_2.5.1           backports_1.4.1    evaluate_0.16     
+[13] highr_0.9          httr_1.4.4         pillar_1.8.1       rlang_1.0.4       
+[17] rstudioapi_0.13    whisker_0.4        callr_3.7.1        jquerylib_0.1.4   
+[21] rmarkdown_2.15     labeling_0.4.2     webshot_0.5.3      readr_2.1.2       
+[25] stringr_1.4.0      munsell_0.5.0      compiler_4.2.1     httpuv_1.6.5      
+[29] xfun_0.32          systemfonts_1.0.4  pkgconfig_2.0.3    htmltools_0.5.3   
+[33] tidyselect_1.1.2   tibble_3.1.8       codetools_0.2-18   viridisLite_0.4.0 
+[37] fansi_1.0.3        tzdb_0.3.0         crayon_1.5.1       dplyr_1.0.9       
+[41] withr_2.5.0        later_1.3.0        commonmark_1.8.0   grid_4.2.1        
+[45] jsonlite_1.8.0     gtable_0.3.0       lifecycle_1.0.1    DBI_1.1.3         
+[49] git2r_0.30.1       magrittr_2.0.3     scales_1.2.1       cli_3.3.0         
+[53] stringi_1.7.8      cachem_1.0.6       farver_2.1.1       fs_1.5.2          
+[57] promises_1.2.0.1   xml2_1.3.3         bslib_0.4.0        ellipsis_0.3.2    
+[61] generics_0.1.3     vctrs_0.4.1        RColorBrewer_1.1-3 iterators_1.0.14  
+[65] tools_4.2.1        forcats_0.5.2      glue_1.6.2         purrr_0.3.4       
+[69] hms_1.1.2          processx_3.7.0     fastmap_1.1.0      yaml_2.3.5        
+[73] colorspace_2.0-3   rvest_1.0.3        sass_0.4.2        </code></pre>
+</div>
 </div>
 
 
