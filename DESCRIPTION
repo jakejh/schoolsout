@@ -13,9 +13,12 @@ Imports:
   broom,
   cowplot,
   data.table,
+  foreach,
   ggplot2,
   haven,
   huxtable,
+  kableExtra,
+  knitr,
   workflowr
 Remotes:
   Rdatatable/data.table@*release

@@ -1,5 +1,5 @@
 ---
-title: "main-analysis"
+title: "Main Analysis"
 author: "Jake Hughey"
 date: "2022-08-17"
 output: workflowr::wflow_html
@@ -7,15 +7,18 @@ editor_options:
   chunk_output_type: console
 ---
 
-Load packages and data.
+### Load packages and data.
 
-```{r}
+```{r, message = FALSE}
 library('broom')
 library('cowplot')
 library('data.table')
+library('foreach')
 library('ggplot2')
 library('haven')
 library('huxtable')
+library('kableExtra')
+library('knitr')
 
 theme_set(
   theme_bw() +
@@ -26,9 +29,10 @@ theme_set(
 dataDir = 'data'
 
 dOrig = setDT(read_dta(file.path(dataDir, 'master.dta')))
+treat_types = c('treat_pool', 'treat_target')
 ```
 
-Melt data.table to long format, scale outcomes by standard deviation of the control group, and rename stuff.
+### Melt data.table to long format, scale outcomes by standard deviation of the control group, and rename stuff.
 
 ```{r, results = 'hide'}
 outcomes = data.table(
@@ -47,26 +51,41 @@ dMelt[
 
 dMelt[, outcome_name := factor(outcome_name, outcomes$level, outcomes$label)]
 
-for (j in c('treat_pool', 'treat_target')) {
+for (j in treat_types) {
   a = attr(dOrig[[j]], 'labels')
   dMelt[, x := factor(x, a, names(a)), env = list(x = j)]}
 ```
 
-Run linear regression on each outcome (although a couple are binary) for both codings of treatment variable. `lm()` automatically removes missing values.
+### Run linear regression on each outcome (although a couple are binary) for both codings of treatment variable, and for the "aggregated" treatment.
+
+`lm()` automatically removes missing values.
 
 ```{r, results = 'hide'}
-dFitPool = dMelt[
-  , .(treat_type = 'pool',
-      fit = list(lm(outcome_value ~ treat_pool + tarl_prev, data = .SD))),
-  keyby = outcome_name]
+dFit = foreach(treat_type = treat_types, .combine = rbind) %do% {
+  dMelt[
+    , .(treat_type = treat_type,
+        fit_sep = list(lm(outcome_value ~ x + tarl_prev, data = .SD)),
+        fit_agg = list(lm(outcome_value ~ I(x != 'Control') + tarl_prev, data = .SD))),
+    keyby = outcome_name, env = list(x = treat_type)]}
+```
 
-dFitTarget = dMelt[
-  , .(treat_type = 'target',
-      fit = list(lm(outcome_value ~ treat_target + tarl_prev, data = .SD))),
-  keyby = outcome_name]
+### Run an anova comparison to test equality of coefficients.
 
-dFit = rbind(dFitPool, dFitTarget)
-dTidy = dFit[, tidy(fit[[1L]], conf.int = TRUE), by = .(treat_type, outcome_name)]
+```{r, results = 'hide'}
+dFit[, anova_comp := .(.(anova(fit_sep[[1L]], fit_agg[[1L]]))),
+     by = .(treat_type, outcome_name)]
+dFit[, p_value_comp := anova_comp[[1L]]$`Pr(>F)`[2L],
+     by = .(treat_type, outcome_name)]
+dFit[treat_type == 'treat_pool', p_value_comp_label := 'SMS Only = Phone + SMS']
+dFit[treat_type == 'treat_target', p_value_comp_label := 'Not Targeted = Targeted']
+```
+
+### Extract model statistics from the fits.
+
+```{r, results = 'hide'}
+dTidy = dFit[
+  , tidy(fit_sep[[1L]], conf.int = TRUE),
+  keyby = .(treat_type, outcome_name)]
 
 dTidy[, term := factor(
   term,
@@ -75,14 +94,7 @@ dTidy[, term := factor(
   c('Intercept', 'SMS Only', 'Phone + SMS', 'Not Targeted', 'Targeted', 'Previous TARL'))]
 ```
 
-```{r}
-dSummary = dMelt[
-  treatment == 0,
-  .(mean_control_outcome = mean(outcome_value, na.rm = TRUE)),
-  keyby = outcome_name]
-```
-
-Plot coefficients.
+### Plot coefficients.
 
 ```{r}
 p = ggplot(dTidy[!(term %in% c('Intercept', 'Previous TARL'))]) +
@@ -99,21 +111,20 @@ p = ggplot(dTidy[!(term %in% c('Intercept', 'Previous TARL'))]) +
 p
 ```
 
+### Produce regression tables.
 
 ```{r}
-fits = dFit[treat_type == 'pool']$fit
-names(fits) = dFit[treat_type == 'pool']$outcome_name
+fits = dFit[treat_type == 'treat_pool']$fit_sep
+names(fits) = dFit[treat_type == 'treat_pool']$outcome_name
 
 huxreg(
   fits, ci_level = 0.95,
   error_format = "({std.error})\n[{p.value}]\n{{{conf.low}, {conf.high}}}",
   coefs = c('SMS Only' = 'treat_poolSMS Only', 'Phone + SMS' = 'treat_poolPhone + SMS'),
   statistics = c('Observations' = 'nobs'))
-```
 
-```{r}
-fits = dFit[treat_type == 'target']$fit
-names(fits) = dFit[treat_type == 'target']$outcome_name
+fits = dFit[treat_type == 'treat_target']$fit_sep
+names(fits) = dFit[treat_type == 'treat_target']$outcome_name
 
 huxreg(
   fits, ci_level = 0.95,
@@ -122,3 +133,25 @@ huxreg(
   statistics = c('Observations' = 'nobs'))
 ```
 
+### Produce table of p-values for comparing treatments.
+
+```{r}
+dComp = dcast(
+  dFit, p_value_comp_label ~ outcome_name, value.var = 'p_value_comp')
+setnames(dComp, 'p_value_comp_label', 'Comparison')
+
+kable_paper(kbl(dComp, digits = 3), 'hover', full_width = FALSE)
+```
+
+### Calculate mean outcome values for the controls.
+
+```{r}
+dSummary = dMelt[
+  treatment == 0,
+  .(mean_control_outcome = mean(outcome_value, na.rm = TRUE)),
+  keyby = outcome_name]
+dSummary = dcast(
+  dSummary, . ~ outcome_name, value.var = 'mean_control_outcome')[, !'.']
+
+kable_paper(kbl(dSummary, digits = 3), 'hover', full_width = FALSE)
+```
