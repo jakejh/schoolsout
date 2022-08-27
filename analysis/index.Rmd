@@ -8,6 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+School's out!
 
 * [Main analysis](main-analysis.html)
+* [Bayesian analysis](bayesian-analysis.html)

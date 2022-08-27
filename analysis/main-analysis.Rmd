@@ -44,6 +44,7 @@ dMelt = melt(
   id.vars = c('unique_id', 'treatment', 'treat_pool', 'treat_target', 'tarl_prev'),
   measure.vars = outcomes$level, variable.name = 'outcome_name',
   value.name = 'outcome_value', variable.factor = FALSE)
+dMelt[, outcome_value := as.numeric(outcome_value)]
 
 dMelt[
   , outcome_value := outcome_value / sd(outcome_value[treatment == 0], na.rm = TRUE),

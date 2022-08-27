@@ -1,0 +1,111 @@
+---
+title: "Main Analysis"
+author: "Jake Hughey"
+date: "2022-08-17"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+### Load packages and data.
+
+```{r, message = FALSE}
+library('bayesplot')
+library('rstanarm')
+# library('broom')
+library('cowplot')
+library('data.table')
+library('foreach')
+library('ggplot2')
+library('haven')
+# library('huxtable')
+library('kableExtra')
+library('knitr')
+
+# theme_set(
+#   theme_bw() +
+#     theme(axis.text = element_text(color = 'black'),
+#           panel.grid.minor = element_blank(),
+#           legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = 'cm')))
+
+dataDir = 'data'
+
+dOrig = setDT(read_dta(file.path(dataDir, 'master.dta')))
+treat_types = c('treat_pool', 'treat_target')
+```
+
+### Melt data.table to long format, scale outcomes by standard deviation of the control group, and rename stuff.
+
+```{r, results = 'hide'}
+outcomes = data.table(
+  level = c('average_level', 'place_value_correct', 'operation_frac_correct'),
+  label = c('Average level', 'Place value', 'Fractions'))
+
+dMelt = melt(
+  dOrig,
+  id.vars = c('unique_id', 'treatment', 'treat_pool', 'treat_target', 'tarl_prev'),
+  measure.vars = outcomes$level, variable.name = 'outcome_name',
+  value.name = 'outcome_value', variable.factor = FALSE)
+dMelt[, outcome_value := as.numeric(outcome_value)]
+
+dMelt[
+  , outcome_value := outcome_value / sd(outcome_value[treatment == 0], na.rm = TRUE),
+  by = outcome_name]
+
+dMelt[, outcome_name := factor(outcome_name, outcomes$level, outcomes$label)]
+
+for (j in treat_types) {
+  a = attr(dOrig[[j]], 'labels')
+  dMelt[, x := factor(x, a, names(a)), env = list(x = j)]}
+```
+
+### Fit Bayesian models
+
+```{r, results = 'hide'}
+dFit = foreach(treat_type = treat_types, .combine = rbind) %do% {
+  dMelt[
+    , .(treat_type = treat_type,
+        fit_sep = list(stan_glm(
+          outcome_value ~ x + tarl_prev, data = .SD, refresh = 0)),
+        fit_agg = list(stan_glm(
+          outcome_value ~ I(x != 'Control') + tarl_prev, data = .SD, refresh = 0))),
+    keyby = outcome_name, env = list(x = treat_type)]}
+
+dFit[, draws := list(list(as.array(fit_sep[[1L]]))), by = 1:nrow(dFit)]
+```
+
+### Plot densities of posterior draws
+
+```{r, message = FALSE, warning = FALSE}
+pList = foreach(i = 1:nrow(dFit)) %do% {
+  p = mcmc_areas(dFit[i]$draws[[1L]], regex_pars = '^treat', prob = 0.95)
+  p = p + scale_y_discrete(labels = function(x) sub('^treat_(pool|target)', '', x))
+  if (i <= 3) p = p + ggtitle(dFit$outcome_name[i])
+  p}
+
+p = plot_grid(plotlist = pList, nrow = 2L, align = 'hv')
+p
+```
+
+### Plot uncertainty intervals of posterior draws
+
+```{r, message = FALSE, warning = FALSE}
+pList = foreach(i = 1:nrow(dFit)) %do% {
+  p = mcmc_intervals(dFit[i]$draws[[1L]], regex_pars = '^treat', prob_outer = 0.95)
+  p = p + scale_y_discrete(labels = function(x) sub('^treat_(pool|target)', '', x))
+  if (i <= 3) p = p + ggtitle(dFit$outcome_name[i])
+  p}
+
+p = plot_grid(plotlist = pList, nrow = 2L, align = 'hv')
+p
+```
+
+### Compute 90% posterior intervals
+
+```{r}
+dInt = dFit[
+  , data.table(posterior_interval(fit_sep[[1L]], prob = 0.9, regex_pars = '^treat')),
+  keyby = .(outcome_name, treat_type)]
+setnames(dInt, 3:4, c('ci_low', 'ci_high'))
+kable_paper(kbl(dInt, digits = 3), 'hover', full_width = FALSE)
+```
