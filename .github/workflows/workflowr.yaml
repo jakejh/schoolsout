@@ -2,7 +2,7 @@ name: workflowr
 
 on:
   push:
-    branches: []
+    branches: ['no']
     tags: ['*']
 
 jobs:
